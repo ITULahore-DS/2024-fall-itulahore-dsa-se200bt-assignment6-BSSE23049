@@ -51,6 +51,7 @@ public:
     void dequeue();
     int peek();
     int size();
+    void clear();
     void printQueue();
 };
 
@@ -58,33 +59,4 @@ public:
 
 
 
-
-class List{
-    Node * head;
-    Node * tail;
-    int count;
-public:
-List(){
-    head = NULL;
-    tail = NULL;
-    count = 0;
-}
-~List(){
-    while(head != NULL){
-        Node * temp = head;
-        head = head ->getNext();
-        delete temp;
-    }
-}
-    bool isEmpty();
-    void append(int data);
-    void prepend(int data);
-    void insertAtIndex(int data, int index);
-    void deleteFromEnd();
-    void deleteFromStart();
-    void deleteFromIndex(int index);
-    Node* getHead();
-    Node* getTail();
-    void printList();
-};
 #endif

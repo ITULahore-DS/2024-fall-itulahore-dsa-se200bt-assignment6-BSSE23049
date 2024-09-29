@@ -103,7 +103,7 @@ void Stack::printStack()
     Node * temp = top;
     while (temp != nullptr)
     {
-        cout << temp ->getData() << " ";
+        cout << temp ->getData() << "  ";
         temp = temp ->getNext();                    // dispaly function show each node
     }
     cout << endl;
@@ -179,169 +179,25 @@ int Queue::size()
     return count;
 }
 
+void Queue::clear()
+{
+    while(top->getNext() != nullptr){
+        Node * temp = top;
+        top = top->getNext();
+        delete temp;                        // delete previous index top move to next one
+    }
+    top = nullptr;                          // update the member variable to default
+    count = 0;  
+}
+
 void Queue::printQueue()
 {
     Node * temp = top;
     while (temp != nullptr)
     {
-        cout << temp ->getData() << " ";
+        cout << temp ->getData() << "  ";
         temp = temp ->getNext();                // display function show whole Queue
     }
     cout << endl;
 }
-
- //                 ======================  linked list fucntions =======================
-
-bool List::isEmpty()
-{
-    if(head == NULL && tail == NULL){
-        return true;
-    }
-    return false;
-}
-
-void List::append(int data)
-{
-    // create Node 
-    Node * temp = new Node(data);
-    // for empty linked list 
-    if(isEmpty()){
-        head = temp;
-    }else{
-        tail->setNext(temp);
-    }
-    // update tail 
-    tail = temp;
-    count++;
-}
-
-void List::prepend(int data)
-{
-    // create Node 
-    Node * temp = new Node(data);
-    // for empty linked list 
-    if(isEmpty()){
-        tail = temp;
-    }
-
-   temp->setNext(head);
-    // update head 
-    head = temp;   
-    count++;
-}
-
-void List::insertAtIndex(int data, int index)
-{   Node * node_to_insert = new Node(data);
-    if(index < 0 || index > count){
-        throw invalid_argument("Invalid index");
-        return ;
-    }
-    else if(index == 0){
-        // function ot put value at first 
-        prepend(data);
-        
-    }else if(index == count ){
-        // call funtion to insert value at last 
-        append(data);
-    }else{
-        int cnt = 0;
-        Node * temp = head;
-        while(temp->getNext() != NULL && cnt != index - 1){
-            temp = temp->getNext();
-            cnt++;
-        }
-
-        node_to_insert->setNext(temp->getNext());
-        temp->setNext(node_to_insert);
-        count++;
-    }
-}
-
-void List::deleteFromEnd()
-{
-    // is empty
-    if(isEmpty()){
-        throw invalid_argument("list is empty");
-
-    }// for single node case
-    else if(head ->getNext() == NULL){
-        delete head;
-        tail = NULL;
-        head = tail;
-    }else{
-        Node * temp = head;
-        // move upto 2nd last index
-        while(temp->getNext()->getNext() != NULL ){
-            temp = temp->getNext();
-        }
-        Node * node_to_delete = tail;
-        tail = temp;
-        tail->setNext(NULL);
-        delete node_to_delete;
-    }
-    count--;
-
-}
-
-void List::deleteFromStart()
-{
-    // is empty
-    if(isEmpty()){
-        throw invalid_argument("list is empty");
-    }
-    else{
-        Node * temp = head;
-        // update head
-        head = head->getNext();
-        delete temp;
-    }
-    // if after delete single node update head and  tail both
-    if(head == nullptr){
-        tail = head;
-    }
-    count--;
-}
-
-void List::deleteFromIndex(int index)
-{
-    if(index < 0 || index >= count){
-        throw invalid_argument("Invalid index");
-    }else if(index == 0){
-        deleteFromStart();
-    }else if(index == count - 1){
-        deleteFromEnd();
-    }else{
-        int cnt = 0;
-        Node * temp = head;
-        while(temp->getNext() != NULL && cnt != index - 1){
-            temp = temp->getNext();
-            cnt++;
-        }
-        Node * node_to_delete = temp->getNext();
-        temp->setNext(node_to_delete->getNext());
-        delete node_to_delete;
-        count--;
-    }
-}
-
-Node *List::getHead()
-{
-    return head;
-}
-
-Node *List::getTail()
-{
-    return tail;
-}
-
-void List::printList()
-{
-    Node * temp = head;
-    while(temp != NULL){
-        cout << temp->getData() <<"\t";
-        temp = temp->getNext();
-    }
-
-}
-
 
